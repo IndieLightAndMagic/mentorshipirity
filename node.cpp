@@ -33,13 +33,19 @@ Google tests. (codigo)
 
 
 struct Node {
+private:
 	int val;
 	Node* next;
     Node(const int& v, Node* parent = nullptr):val(v), next(nullptr){
         if (parent) parent -> next = this;
     }
+public:
+	static Node* CreateList(std::vector<int> u);
+	static Node* Merge(Node* s0, Node* s1);	
+	
+	bool IsOrdered(Node* ps);     
 };
-Node* createList(std::vector<int> u){
+Node* Node::CreateList(std::vector<int> u){
 
     Node* head = nullptr;
     Node* parent = nullptr;
@@ -51,7 +57,7 @@ Node* createList(std::vector<int> u){
     }
     return head;
 }
-Node* merge(Node* s0, Node* s1)
+Node* Node::Merge(Node* s0, Node* s1)
 {
 
 	Node* nlist = nullptr;
@@ -74,7 +80,7 @@ Node* merge(Node* s0, Node* s1)
 	}
 	return nlist;
 }
-bool isOrdered(Node* ps){
+bool Node::IsOrdered(Node* ps){
 
     if(!ps) return true;
     bool first = true;
@@ -103,17 +109,17 @@ protected:
     virtual void SetUp()
     {
         tests ts{
-                {createList({0,2,4,5,8}),createList({-11,3,4,10,23})},
-                {createList({}),createList({12,130,1000})},
-                {createList({}),createList({})},
-                {createList({-1,0,101}),createList({})},
-                {createList({1,2,3,4,5,6}),createList({10,11,12,13,14})},
-                {createList({10,12,18,23}),createList({9,14,16,25})},
-                {createList({0,0,130,1000}),createList({1,1,1,1,1})},
-                {createList({}),createList({8,12,14,14})}
+                {Node::CreateList({0,2,4,5,8}),Node::CreateList({-11,3,4,10,23})},
+                {Node::CreateList({}),Node::CreateList({12,130,1000})},
+                {Node::CreateList({}),Node::CreateList({})},
+                {Node::CreateList({-1,0,101}),Node::CreateList({})},
+                {Node::CreateList({1,2,3,4,5,6}),Node::CreateList({10,11,12,13,14})},
+                {Node::CreateList({10,12,18,23}),Node::CreateList({9,14,16,25})},
+                {Node::CreateList({0,0,130,1000}),Node::CreateList({1,1,1,1,1})},
+                {Node::CreateList({}),Node::CreateList({8,12,14,14})}
         };
         for (auto&t : ts){
-            auto mrg = merge(t.first,t.second);
+            auto mrg = Node::Merge(t.first,t.second);
             results.push_back(mrg);
         }
         for (auto&t : ts){
@@ -134,7 +140,7 @@ protected:
 TEST_F(NodeTest, mergerOrdered)
 {
     for(auto& result: results) {
-        EXPECT_EQ(isOrdered(result), true);
+        EXPECT_EQ(result->IsOrdered(result), true);
     }
 }
 } //testingFixture
@@ -142,6 +148,12 @@ int main(int argc, char **argv){
 
 
     ::testing::InitGoogleTest(&argc,argv);
-    RUN_ALL_TESTS();
-
+    if (RUN_ALL_TESTS())
+    {
+    	std::cout << "*** Test program failed ***\n";
+    }
+    else 
+    {
+    	std::cout << "*** Test program success ***\n";
+    }
 }

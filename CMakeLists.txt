@@ -8,7 +8,7 @@ project(${TARGET_NAME})
 
 
 
-aux_source_directory(${CMAKE_SOURCE_DIR} SOURCE_LIST)
+aux_source_directory(${CMAKE_SOURCE_DIR}/src SOURCE_LIST)
 if (${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
 	add_executable(${TARGET_NAME} ${SOURCE_LIST})
 elseif (${CMAKE_GENERATOR} STREQUAL "Xcode")
@@ -21,8 +21,15 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #DIRECTORIES
 get_filename_component(ROOT_DIR "." ABSOLUTE)
-set(LIB_DIR "${ROOT_DIR}")
-set(INCLUDE_DIR "${ROOT_DIR}")
+
+set(_3RD_PARTY "${ROOT_DIR}/3rd")
+
+set(LIB_DIR
+		"${_3RD_PARTY}/lib")
+set(INCLUDE_DIR
+		"${ROOT_DIR}/src"
+		"${_3RD_PARTY}/include")
+
 message(STATUS "SYSTEM NAME: ${CMAKE_SYSTEM_NAME}")
 message(STATUS "ROOT_DIR: ${ROOT_DIR}")
 message(STATUS "LIB DIR: ${LIB_DIR}")

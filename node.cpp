@@ -41,7 +41,7 @@ private:
     }
 public:
 	static Node* CreateList(const std::vector<int> &ru);
-	static Node* Merge(Node* s0, Node* s1);	
+	static Node* CreateListUsingNodes(Node* s0, Node* s1);	
 	
 	bool IsOrdered(Node* ps);     
 };
@@ -57,7 +57,7 @@ Node* Node::CreateList(const std::vector<int> &ru){
     }
     return head;
 }
-Node* Node::Merge(Node* s0, Node* s1)
+Node* Node::CreateListUsingNodes(Node* s0, Node* s1)
 {
 
 	Node* nlist = nullptr;
@@ -119,7 +119,7 @@ protected:
                 {Node::CreateList({}),Node::CreateList({8,12,14,14})}
         };
         for (auto&t : ts){
-            auto mrg = Node::Merge(t.first,t.second);
+            auto mrg = Node::CreateListUsingNodes(t.first,t.second);
             results.push_back(mrg);
         }
         for (auto&t : ts){

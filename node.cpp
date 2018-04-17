@@ -43,7 +43,7 @@ public:
 	static Node* CreateList(const std::vector<int> &ru);
 	static Node* CreateListUsingNodes(Node* s0, Node* s1);	
 	
-	bool IsOrdered(Node* ps);     
+	bool IsOrdered(Node* ps) const;     
 };
 Node* Node::CreateList(const std::vector<int> &ru){
 
@@ -80,7 +80,7 @@ Node* Node::CreateListUsingNodes(Node* s0, Node* s1)
 	}
 	return nlist;
 }
-bool Node::IsOrdered(Node* ps){
+bool Node::IsOrdered(Node* ps) const {
 
     if(!ps) return true;
     bool first = true;

@@ -40,16 +40,16 @@ private:
         if (parent) parent -> next = this;
     }
 public:
-	static Node* CreateList(std::vector<int> u);
+	static Node* CreateList(const std::vector<int> &ru);
 	static Node* Merge(Node* s0, Node* s1);	
 	
 	bool IsOrdered(Node* ps);     
 };
-Node* Node::CreateList(std::vector<int> u){
+Node* Node::CreateList(const std::vector<int> &ru){
 
     Node* head = nullptr;
     Node* parent = nullptr;
-    for (int& r: u){
+    for (auto r: ru){
 
         auto n = new Node(r,parent);
         if (!parent) head = parent = n;
